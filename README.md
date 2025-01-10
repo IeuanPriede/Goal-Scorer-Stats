@@ -1,32 +1,94 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Goal Scorer Stats - Input Your Favourite Players Stats
 
-Welcome,
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+Goal Scorer Stats is a usful tool, whether you are a Premier League club or just a fan of the beautiful game.<br/>
+Stats have become essential in scouting for players, or just deciding who to captain in your fantasy team. 
 
-## Reminders
+The deployed project live link is [HERE]
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+## Contents
 
-## Creating the Heroku app
+- [Introduction](#introduction)
+- [Project](#project)
+  - [User goals:](#user-goals)
+  - [Site owner goals](#site-owner-goals)
+- [Pre development](#pre-development)
+- [Development](#development)
+- [Features](#features)
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+- [Google Sheets](#google-sheets)
+  - [Stats](#Stats)
+- [Technologies Used](#technologies-used)
+- [Resources](#resources)
+  - [Libraries](#libraries)
+- [Testing](#testing)
+- [Future Updates](#future-updates)  
+- [Validation](#validation)
+- [Deployment](#deployment)
+  - [Heroku](#heroku)
+  - [Branching the GitHub Repository using GitHub Desktop and Visual Studio Code](#branching-the-github-repository-using-github-desktop-and-visual-studio-code)
+- [Bugs](#bugs)
+- [Credits](#credits)
+- [Acknowledgements](#acknowledgements)
 
-1. `heroku/python`
-2. `heroku/nodejs`
+## Introduction
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+## Project
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+### User goals
 
-Connect your GitHub repository and deploy as normal.
+### Site owner goals
 
-## Constraints
+### Pre development
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+I made notes to provide a clear path and to code one area at a time. 
 
----
+### Development
 
-Happy coding!
+## Features
+
+## Google Sheets
+
+### Stats
+
+## Technologies Used
+
+The main technology used to create this program is Python
+Google API
+Google Sheets
+
+### Resources
+
+- GitHub 
+- Heroku
+
+### Libraries
+
+[Gspread](https://docs.gspread.org/en/latest/)<br/>
+[Google-auth](https://google-auth.readthedocs.io/en/master/)
+
+## Testing
+
+## Future Updates
+
+## Validation
+
+## deployment
+
+### Heroku
+
+### Branching the GitHub Repository using GitHub Desktop and Visual Studio Code
+1. Go to the GitHub repository.
+2. Click on the branch button in the left hand side under the repository name.
+3. Give your branch a name.
+4. Go to the CODE area on the right and select "Open with GitHub Desktop".
+5. You will be asked if you want to clone the repository - say yes.
+6. GitHub desktop will suggest what to do next - select Open code using Visual Studio Code.
+
+The deployed project live link is [HERE]
+
+## Bugs
+
+## Credits
+
+## Acknowledgements 
