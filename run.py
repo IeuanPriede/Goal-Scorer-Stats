@@ -17,15 +17,19 @@ SHEET = GSPREAD_CLIENT.open('Goal-Scorer-Stats')
 stats = SHEET.worksheet('stats')
 
 # Function to input data
-def add_name_to_sheet():
-    # Promt the user to enter a name
+def add_data_to_sheet():
+    # Promt the user to enter data
     name = input("Enter players name: ")
-    # Appends the name to the sheet as a new row
-    stats.append_row([name])
-    print(f"Player '{name}' has been added to the sheet!")
+    position = input("Enter players position(Attacker/Midfielder/Defender/Goalkeeper):")
+    goals = int(input("Enter the number of goals scored: "))
+    matches = int(input("Enter the number of matches played: "))
+    minutes = int(input("Enter the amount of minutes played: "))
+    # Appends the data to the sheet as a new row
+    stats.append_row([name, position, goals, matches, minutes])
+    print(f"Player '{name}' that plays as a '{position}' with {goals} goals in {matches} matches and {minutes} minutes has been added to the sheet!")
 
 # Call the function
-add_name_to_sheet()    
+add_data_to_sheet()    
 
 data = stats.get_all_values()
 
