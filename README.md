@@ -41,7 +41,9 @@ The deployed project live link is [HERE]
 
 ### Pre development
 
-I made notes to provide a clear path and to code one area at a time. 
+I created a flow chart to help me take each piece of code one step at a time.
+
+![flow chart](images/flow_chart.png)
 
 ### Development
 
