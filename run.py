@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+import math
 
 # Define the scope and authenticate
 SCOPE = [
@@ -25,11 +26,20 @@ def add_data_to_sheet():
     matches = get_valid_integer("Enter the number of matches played: ")
     minutes = get_valid_integer("Enter the amount of minutes played: ")
 
-    # Appends the data to the sheet as a new row
-    stats.append_row([name, position, goals, matches, minutes])
+    # Calculate minutes per goal
+    minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
 
-    print(f"\nPlayer '{name}' that plays as '{position}' with {goals} goals in {matches} matches and {minutes} minutes has been added to the stats sheet!")
-    
+    # Appends the data to the sheet as a new row
+    stats.append_row([name, position, goals, matches, minutes, minutes_per_goal])
+
+    print(f"\nPlayer '{name}' that plays as '{position}' with {goals} goals in {matches} matches and {minutes} minutes" f"(Minutes per Goal: {minutes_per_goal}) has been added to the stats sheet!")
+
+def calculate_minutes_per_goal(minutes, goals):
+    """
+    Calculate minutes per goal.
+    If the player scored 0 goals, return 'N/A' to aviod division by zero.
+    """ 
+    return math.ceil(minutes / goals) if goals > 0 else "N/A"  
 
 def get_valid_name():
     """
