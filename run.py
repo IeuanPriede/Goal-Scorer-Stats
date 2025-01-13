@@ -93,6 +93,19 @@ def display_player_stats():
     print("\nPlayer List:")
     for name in player_names:
         print(name)
+
+    # Prompt user to select a player's name
+    while True:
+        selected_name = input("\nEnter a player's name to view their stats: ").strip()
+        if selected_name in player_names:
+            # Find and display the stats of the selected player
+            player_row = player_data[player_names.index(selected_name)]
+            player_stats = dict(zip(headers, player_row))
+            print(f"\nStats for {selected_name}:")
+            for key, value in player_stats.items():
+                print(f"{key}: {value}")
+            break
+        print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
     
 
 # Call the function
