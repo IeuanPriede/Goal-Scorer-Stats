@@ -28,7 +28,7 @@ def add_data_to_sheet():
     # Appends the data to the sheet as a new row
     stats.append_row([name, position, goals, matches, minutes])
 
-    print(f"\nPlayer '{name}' that plays as '{position}' with {goals} goals in {matches} matches and {minutes} minutes has been added to the sheet!")
+    print(f"\nPlayer '{name}' that plays as '{position}' with {goals} goals in {matches} matches and {minutes} minutes has been added to the stats sheet!")
     
 
 def get_valid_name():
@@ -51,6 +51,19 @@ def get_valid_position():
         if position in allowed_positions:
             return position
         print(f"Invalid data: Position must be one of {allowed_positions}.")
+
+def get_valid_integer(prompt):
+    """
+    Prompt user to enter a valid integer.
+    """
+    while True:
+        try:
+            value = int(input(prompt))
+            if value >= 0:
+                return value
+            print("Invalid data: Please enter a non-negative integer.")
+        except ValueError:
+            print("Invalid data: Please enter a valid integer.")    
     
 
 # Call the function
