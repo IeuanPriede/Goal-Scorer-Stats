@@ -40,6 +40,17 @@ def get_valid_name():
         if name:
             return name
         print("Invalid data: Please input a valid name.")
+
+def get_valid_position():
+    """
+    Prompt user to enter a valid position
+    """
+    allowed_positions = ["Attacker", "Midfielder", "Defender", "Goalkeeper"]
+    while True:
+        position = input("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper)")
+        if position in allowed_positions:
+            return position
+        print(f"Invalid data: Position must be one of {allowed_positions}.")
     
 
 # Call the function
