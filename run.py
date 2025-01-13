@@ -18,19 +18,29 @@ stats = SHEET.worksheet('stats')
 
 # Function to input data
 def add_data_to_sheet():
-    # Promt the user to enter data
-    name = input("Enter players name: ")
-    position = input("Enter players position(Attacker/Midfielder/Defender/Goalkeeper):")
-    goals = int(input("Enter the number of goals scored: "))
-    matches = int(input("Enter the number of matches played: "))
-    minutes = int(input("Enter the amount of minutes played: "))
+    # Promt the user to enter data with validation
+    name = get_valid_name()
+    position = get_valid_position()
+    goals = get_valid_integer("Enter the number of goals scored: ")
+    matches = get_valid_integer("Enter the number of matches played: ")
+    minutes = get_valid_integer("Enter the amount of minutes played: ")
+
     # Appends the data to the sheet as a new row
     stats.append_row([name, position, goals, matches, minutes])
-    print(f"Player '{name}' that plays as a '{position}' with {goals} goals in {matches} matches and {minutes} minutes has been added to the sheet!")
+
+    print(f"\nPlayer '{name}' that plays as '{position}' with {goals} goals in {matches} matches and {minutes} minutes has been added to the sheet!")
+    
+
+def get_valid_name():
+    """
+    Prompt user to enter a valid name.
+    """
+    while True:
+        name = input("Enter player's name: ").strip()
+        if name:
+            return name
+        print("Invalid data: Please input a valid name.")
+    
 
 # Call the function
-add_data_to_sheet()    
-
-data = stats.get_all_values()
-
-print(data)
+add_data_to_sheet()
