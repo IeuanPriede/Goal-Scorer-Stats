@@ -73,8 +73,28 @@ def get_valid_integer(prompt):
                 return value
             print("Invalid data: Please enter a non-negative integer.")
         except ValueError:
-            print("Invalid data: Please enter a valid integer.")    
+            print("Invalid data: Please enter a valid integer.")
+
+def display_player_stats():
+    """
+    Prompt the user to input a player's name and display their stats.
+    """    
+
+    # Get all data from the sheet
+    data = stats.get_all_values()
+
+    # Extract the header and player names
+    headers = data[0]
+    player_data = data[1:]
+
+    # Extract the player names
+    player_names = [row[0] for row in player_data]
+
+    print("\nPlayer List:")
+    for name in player_names:
+        print(name)
     
 
 # Call the function
 add_data_to_sheet()
+display_player_stats()
