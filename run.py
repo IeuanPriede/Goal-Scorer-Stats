@@ -103,7 +103,7 @@ def get_valid_integer(prompt):
 
 def display_player_stats():
     """
-    Prompt the user to input a player's name and display their stats.
+    Display a list of players and allow the user to view, edit or remove their stats.
     """    
 
     # Get all data from the sheet
@@ -116,6 +116,10 @@ def display_player_stats():
     # Extract the player names
     player_names = [row[0] for row in player_data]
 
+    if not player_names:
+        print("\nNo players found in the stats sheet.")
+        return
+
     print("\nPlayer List:")
     for name in player_names:
         print(name)
@@ -123,13 +127,38 @@ def display_player_stats():
     # Prompt user to select a player's name
     while True:
         selected_name = input("\nEnter a player's name to view their stats: ").strip()
-        if selected_name.lower() in [p.lower() for p in player_names]:
+        if selected_name.lower() == "exit":
+            break      
+        elif selected_name.lower() in [p.lower() for p in player_names]:
             # Find and display the stats of the selected player
             player_row = player_data[[p.lower() for p in player_names].index(selected_name.lower())]
             player_stats = dict(zip(headers, player_row))
             print(f"\nStats for {selected_name}:")
             for key, value in player_stats.items():
                 print(f"{key}: {value}")
+            
+            # Offer options to edit or remove
+            while True:
+                print("\nOptions:")
+                print("1. Edit stats")
+                print("2. Remove player")
+                print("3. Go back")
+
+                choice = input("\nEnter your choice: ").strip()
+
+                if choice == "1":
+                    # Prompt for updated values
+                    position = input(f"Enter new position (current: {player_row[1]})").strip or player_row[1]
+                    goals = int(input(f"Enter new goals scored (current: {player_row[2]}): ")).strip() or player_row[2]
+                    matches = int(input(f"Enter new matches played (current: {player_row[3]}): ")).strip() or player_row[3]
+                    minutes = int(input(f"Enter new minutes played (current: {player_row[4]}): ")).strip() or player_row[4]
+                    minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
+
+                    # Update the row in the sheet
+                    stats.update(f'A{row_index}:F{row_index}', [[selected_name, position, goals, matches, minutes, minutes_per_goal]])
+                    print(f"\nStats for {selected_name} have been updated!")
+                    break
+                elif choice == "2":
             break
         print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
     
