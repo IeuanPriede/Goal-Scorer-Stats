@@ -180,13 +180,13 @@ def display_player_stats(selected_name=None):
                 values=[[selected_name, position, goals, matches, minutes, minutes_per_goal]],
             )
             print(f"\nStats for {selected_name} have been updated!")
-            break
+            return add_data_to_sheet()
 
         elif choice == "2":
             # Remove the row from the sheet
             stats.delete_rows(row_index)
             print(f"\nStats for {selected_name} have been removed!")
-            break
+            return add_data_to_sheet()
 
         elif choice == "3":
             return add_data_to_sheet()
