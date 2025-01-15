@@ -189,7 +189,7 @@ def display_player_stats(selected_name=None):
             break
 
         elif choice == "3":
-            break
+            return add_data_to_sheet()
 
         else:
             print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
