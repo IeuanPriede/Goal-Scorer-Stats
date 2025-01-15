@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import math
+import sys
 
 # Define the scope and authenticate
 SCOPE = [
@@ -57,7 +58,7 @@ def get_valid_name(player_names):
     Prompt user to enter a valid name, or press Enter to see the list of players.
     """
     while True:
-        name = input("Enter player's name (or press Enter to see the list of players): ").strip()
+        name = get_input_with_exit("Enter player's name (or press Enter to see the list of players): ").strip()
         if name =="":
             # Show the list of players if no name is entered
             print("\nPlayer List:")
@@ -66,7 +67,7 @@ def get_valid_name(player_names):
             
             # Proceed directly to allow the user to select a player from the list
             while True:
-                selected_name = input("\nEnter a player's name to view their stats: ").strip()
+                selected_name = get_input_with_exit("\nEnter a player's name to view their stats: ").strip()
                 if selected_name.lower() in [p.lower() for p in player_names]:
                     # Return the exact matching name from list
                     return next(p for p in player_names if p.lower() == selected_name.lower())
@@ -83,7 +84,7 @@ def get_valid_position():
     """
     allowed_positions = ["Attacker", "Midfielder", "Defender", "Goalkeeper"]
     while True:
-        position = input("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper)").strip().capitalize()
+        position = get_input_with_exit("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper)").strip().capitalize()
         if position in allowed_positions:
             return position
         print(f"Invalid data: Position must be one of {allowed_positions}.")
@@ -93,8 +94,9 @@ def get_valid_integer(prompt):
     Prompt user to enter a valid integer.
     """
     while True:
+        user_input = get_input_with_exit(prompt)
         try:
-            value = int(input(prompt))
+            value = int(user_input)
             if value >= 0:
                 return value
             print("Invalid data: Please enter a non-negative integer.")
@@ -129,7 +131,7 @@ def display_player_stats(selected_name=None):
 
         # Prompt user to select a player's name
         while True:
-            selected_name = input("\nEnter a player's name to view their stats, or type 'back' to go back: ").strip()
+            selected_name = get_input_with_exit("\nEnter a player's name to view their stats, or type 'back' to go back: ").strip()
             if selected_name.lower() == "back":
                 return add_data_to_sheet()
 
@@ -230,6 +232,15 @@ def display_player_stats_for_name(name):
     else:
         print(f"Player '{name}' not found in the stats sheet.")
 
+def get_input_with_exit(prompt):
+    """
+    Prompt the user for input, and exit the program if 'exit is entered.
+    """
+    user_input = input(prompt).strip()
+    if user_input.lower() == "exit":
+        print("\nExiting the program. Goodbye!")
+        sys.exit()
+    return user_input
 
 # Call the functions to add a player and view stats
 add_data_to_sheet()
