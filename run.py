@@ -131,7 +131,7 @@ def display_player_stats(selected_name=None):
 
         # Prompt user to select a player's name
         while True:
-            selected_name = get_input_with_exit("\nEnter a player's name to view their stats, or type 'back' to go back: ").strip()
+            selected_name = get_input_with_exit("\nEnter a player's name to view their stats, type 'back' to go back, or type 'exit' to exit the program: ").strip()
             if selected_name.lower() == "back":
                 return add_data_to_sheet()
 
@@ -158,7 +158,7 @@ def display_player_stats(selected_name=None):
         print("2. Remove player")
         print("3. Go back")
 
-        choice = input("\nEnter your choice: ").strip()
+        choice = get_input_with_exit("\nEnter your choice: ").strip()
 
         if choice == "1":
             # Prompt for updated values
