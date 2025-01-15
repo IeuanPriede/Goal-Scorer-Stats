@@ -67,8 +67,9 @@ def get_valid_name(player_names):
             # Proceed directly to allow the user to select a player from the list
             while True:
                 selected_name = input("\nEnter a player's name to view their stats: ").strip()
-                if selected_name in player_names:
-                    return selected_name # Return valid player name
+                if selected_name.lower() in [p.lower() for p in player_names]:
+                    # Return the exact matching name from list
+                    return next(p for p in player_names if p.lower() == selected_name.lower())
                 else:
                     print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
         elif name:    
@@ -82,7 +83,7 @@ def get_valid_position():
     """
     allowed_positions = ["Attacker", "Midfielder", "Defender", "Goalkeeper"]
     while True:
-        position = input("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper)")
+        position = input("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper)").strip().capitalize()
         if position in allowed_positions:
             return position
         print(f"Invalid data: Position must be one of {allowed_positions}.")
@@ -122,9 +123,9 @@ def display_player_stats():
     # Prompt user to select a player's name
     while True:
         selected_name = input("\nEnter a player's name to view their stats: ").strip()
-        if selected_name in player_names:
+        if selected_name.lower() in [p.lower() for p in player_names]:
             # Find and display the stats of the selected player
-            player_row = player_data[player_names.index(selected_name)]
+            player_row = player_data[[p.lower() for p in player_names].index(selected_name.lower())]
             player_stats = dict(zip(headers, player_row))
             print(f"\nStats for {selected_name}:")
             for key, value in player_stats.items():
@@ -160,7 +161,7 @@ def display_player_stats_for_name(name):
 
     if name in player_names:
         # Find and display the stats of the selected player
-        player_row = player_data[player_names.index(name)]
+        player_row = player_data[[p.lower() for p in player_names].index(name.lower())]
         player_stats = dict(zip(headers, player_row))
         print(f"\nStats for {name}:")
         for key, value in player_stats.items():
