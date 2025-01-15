@@ -151,34 +151,42 @@ def display_player_stats():
 
                 if choice == "1":
                     # Prompt for updated values
-                    position = input(f"Enter new position (current: {player_row[1]})").strip or player_row[1]
+                    position_input = input(f"Enter new position (current: {player_row[1]}): ").strip()
+                    position = position_input if position_input else player_row[1]
 
                     goals_input = input(f"Enter new goals scored (current: {player_row[2]}): ").strip()
                     goals = int(goals_input) if goals_input else int(player_row[2])
 
                     matches_input = input(f"Enter new matches played (current: {player_row[3]}): ").strip()
-                    goals = int(matches_input) if matches_input else int(player_row[3])
+                    matches = int(matches_input) if matches_input else int(player_row[3])
 
                     minutes_input = input(f"Enter new minutes played (current: {player_row[4]}): ").strip()
-                    goals = int(minutes_input) if minutes_input else int(player_row[4])
+                    minutes = int(minutes_input) if minutes_input else int(player_row[4])
 
                     minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
-                    
 
                     # Update the row in the sheet
-                    stats.update(f'A{row_index}:F{row_index}', [[selected_name, position, goals, matches, minutes, minutes_per_goal]])
+                    stats.update(
+                        range_name=f'A{row_index}:F{row_index}', 
+                        values=[[selected_name, position, goals, matches, minutes, minutes_per_goal]],
+                    )
                     print(f"\nStats for {selected_name} have been updated!")
                     break
+
                 elif choice == "2":
                     # Remove the row from the sheet
                     stats.delete_rows(row_index)
                     print(f"\nStats for {selected_name} have been removed!")
                     break
+
                 elif choice == "3":
                     break
+
                 else:
                     print("Invalid choice. Please try again.")
+
             break
+
         else:
             print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
     
