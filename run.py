@@ -29,7 +29,7 @@ def add_data_to_sheet():
     if name in player_names:
         # Skip the inputs for position, goals, matches, and minutes
         print(f"\nShowing stats for player '{name}'.")
-        display_player_stats_for_name(name)
+        display_player_stats(selected_name=name)
     else:
         # Ask for position, goals, matches, and minutes only if new player is added
         position = get_valid_position()
@@ -101,9 +101,10 @@ def get_valid_integer(prompt):
         except ValueError:
             print("Invalid data: Please enter a valid integer.")
 
-def display_player_stats():
+def display_player_stats(selected_name=None):
     """
     Display a list of players and allow the user to view, edit or remove their stats.
+    If a specific player name is provided, jump directly to their stats.
     """    
 
     # Get all data from the sheet
@@ -120,71 +121,74 @@ def display_player_stats():
         print("\nNo players found in the stats sheet.")
         return
 
-    print("\nPlayer List:")
-    for name in player_names:
-        print(name)
+    if not selected_name:
+        # Display the player list if no specific player is provided   
+        print("\nPlayer List:")
+        for name in player_names:
+            print(name)
 
-    # Prompt user to select a player's name
-    while True:
-        selected_name = input("\nEnter a player's name to view their stats: ").strip()
-        if selected_name.lower() == "exit":
-            break 
+        # Prompt user to select a player's name
+        while True:
+            selected_name = input("\nEnter a player's name to view their stats, or type 'back' to go back: ").strip()
+            if selected_name.lower() == "back":
+                return add_data_to_sheet()
 
-        if selected_name.lower() in [p.lower() for p in player_names]:
-            # Get index of the player in the data
-            index = [p.lower() for p in player_names].index(selected_name.lower())
-            row_index = index + 2 # Account for header row (1-indexed in Google Sheets)
-            player_row = player_data[index]
+            if selected_name.lower() in [p.lower() for p in player_names]:
+                # Get the exact name
+                selected_name = next(p for p in player_names if p.lower() == selected.name.lower())
+                break
+            else:
+                print(f"Invalid selection: '{selected_name}' is not on the player list. Please try again")
 
-            print(f"\nStats for {selected_name}:")
-            for key, value in zip(headers, player_row):
-                print(f"{key}: {value}")
+    # Get the player's row
+    index = [p.lower() for p in player_names].index(selected_name.lower())
+    row_index = index + 2 # Account for header row (1-indexed in Google Sheets)
+    player_row = player_data[index]
+
+    print(f"\nStats for {selected_name}:")
+    for key, value in zip(headers, player_row):
+        print(f"{key}: {value}")
             
-            # Offer options to edit or remove
-            while True:
-                print("\nOptions:")
-                print("1. Edit stats")
-                print("2. Remove player")
-                print("3. Go back")
+    # Offer options to edit or remove
+    while True:
+        print("\nOptions:")
+        print("1. Edit stats")
+        print("2. Remove player")
+        print("3. Go back")
 
-                choice = input("\nEnter your choice: ").strip()
+        choice = input("\nEnter your choice: ").strip()
 
-                if choice == "1":
-                    # Prompt for updated values
-                    position_input = input(f"Enter new position (current: {player_row[1]}): ").strip()
-                    position = position_input if position_input else player_row[1]
+        if choice == "1":
+            # Prompt for updated values
+            position_input = input(f"Enter new position (current: {player_row[1]}): ").strip()
+            position = position_input if position_input else player_row[1]
 
-                    goals_input = input(f"Enter new goals scored (current: {player_row[2]}): ").strip()
-                    goals = int(goals_input) if goals_input else int(player_row[2])
+            goals_input = input(f"Enter new goals scored (current: {player_row[2]}): ").strip()
+            goals = int(goals_input) if goals_input else int(player_row[2])
 
-                    matches_input = input(f"Enter new matches played (current: {player_row[3]}): ").strip()
-                    matches = int(matches_input) if matches_input else int(player_row[3])
+            matches_input = input(f"Enter new matches played (current: {player_row[3]}): ").strip()
+            matches = int(matches_input) if matches_input else int(player_row[3])
 
-                    minutes_input = input(f"Enter new minutes played (current: {player_row[4]}): ").strip()
-                    minutes = int(minutes_input) if minutes_input else int(player_row[4])
+            minutes_input = input(f"Enter new minutes played (current: {player_row[4]}): ").strip()
+            minutes = int(minutes_input) if minutes_input else int(player_row[4])
 
-                    minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
+            minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
 
-                    # Update the row in the sheet
-                    stats.update(
-                        range_name=f'A{row_index}:F{row_index}', 
-                        values=[[selected_name, position, goals, matches, minutes, minutes_per_goal]],
-                    )
-                    print(f"\nStats for {selected_name} have been updated!")
-                    break
+            # Update the row in the sheet
+            stats.update(
+                range_name=f'A{row_index}:F{row_index}', 
+                values=[[selected_name, position, goals, matches, minutes, minutes_per_goal]],
+            )
+            print(f"\nStats for {selected_name} have been updated!")
+            break
 
-                elif choice == "2":
-                    # Remove the row from the sheet
-                    stats.delete_rows(row_index)
-                    print(f"\nStats for {selected_name} have been removed!")
-                    break
+        elif choice == "2":
+            # Remove the row from the sheet
+            stats.delete_rows(row_index)
+            print(f"\nStats for {selected_name} have been removed!")
+            break
 
-                elif choice == "3":
-                    break
-
-                else:
-                    print("Invalid choice. Please try again.")
-
+        elif choice == "3":
             break
 
         else:
