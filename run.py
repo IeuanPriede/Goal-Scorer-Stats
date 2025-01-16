@@ -256,8 +256,7 @@ def display_player_stats(selected_name=None):
 
         else:
             print(
-                f"Invalid selection: '{selected_name}' "
-                "is not in the player list. Please try again."
+                f"Invalid option selected. Please try again."
             )
 
 

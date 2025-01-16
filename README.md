@@ -118,8 +118,8 @@ Google Sheets
 ### Libraries
 
 [Gspread](https://docs.gspread.org/en/latest/)<br/>
-[Google-auth](https://google-auth.readthedocs.io/en/master/)
-[Math](https://docs.python.org/3/library/math.html)
+[Google-auth](https://google-auth.readthedocs.io/en/master/)<br/>
+[Math](https://docs.python.org/3/library/math.html)<br/>
 [Sys](https://docs.python.org/3/library/sys.html)
 
 ## Testing
