@@ -133,6 +133,8 @@ Additional stats to be added such as assists, shots on target etc.
 
 ## Validation
 
+PEP8 - Python style checker - https://pep8ci.herokuapp.com/ All code validated and where lines were showing as too long they were adjusted.
+
 ## deployment
 
 ### Heroku

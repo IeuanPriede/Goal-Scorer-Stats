@@ -95,9 +95,12 @@ def get_valid_name(player_names):
                         if p.lower() == selected_name.lower()
                     )
                 else:
-                    print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
-        elif name:    
-            return name # Valid name entered
+                    print(
+                        f"Invalid selection: '{selected_name}' is not in the "
+                        "player list. Please try again."
+                    )
+        elif name:
+            return name  # Valid name entered
         else:
             print("Invalid data: Please input a valid name.")
 
@@ -108,7 +111,10 @@ def get_valid_position():
     """
     allowed_positions = ["Attacker", "Midfielder", "Defender", "Goalkeeper"]
     while True:
-        position = get_input_with_exit("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper):\n ").strip().capitalize()
+        position = get_input_with_exit(
+            "Enter player's position "
+            "(Attacker/Midfielder/Defender/Goalkeeper):\n "
+        ).strip().capitalize()
         if position in allowed_positions:
             return position
         print(f"Invalid data: Position must be one of {allowed_positions}.")
@@ -131,9 +137,10 @@ def get_valid_integer(prompt):
 
 def display_player_stats(selected_name=None):
     """
-    Display a list of players and allow the user to view, edit or remove their stats.
+    Display a list of players and allow the user to view,
+    edit or remove their stats.
     If a specific player name is provided, jump directly to their stats.
-    """    
+    """
 
     # Get all data from the sheet
     data = stats.get_all_values()
@@ -150,33 +157,42 @@ def display_player_stats(selected_name=None):
         return
 
     if not selected_name:
-        # Display the player list if no specific player is provided   
+        # Display the player list if no specific player is provided
         print("\nPlayer List:")
         for name in player_names:
             print(name)
 
         # Prompt user to select a player's name
         while True:
-            selected_name = get_input_with_exit("\nEnter a player's name to view their stats, type 'back' to go back, or type 'exit' to exit the program:\n ").strip()
+            selected_name = get_input_with_exit(
+                "\nEnter a player's name to view their stats, "
+                "type 'back' to go back, or type 'exit' "
+                "to exit the program:\n "
+            ).strip()
             if selected_name.lower() == "back":
                 return add_data_to_sheet()
 
             if selected_name.lower() in [p.lower() for p in player_names]:
                 # Get the exact name
-                selected_name = next(p for p in player_names if p.lower() == selected_name.lower())
+                selected_name = next(p for p in player_names
+                                     if p.lower() == selected_name.lower())
                 break
             else:
-                print(f"Invalid selection: '{selected_name}' is not on the player list. Please try again")
+                print(
+                    f"Invalid selection: '{selected_name}' "
+                    "is not on the player list. Please try again"
+                )
 
     # Get the player's row
     index = [p.lower() for p in player_names].index(selected_name.lower())
-    row_index = index + 2 # Account for header row (1-indexed in Google Sheets)
+    # Account for header row (1-indexed in Google Sheets)
+    row_index = index + 2
     player_row = player_data[index]
 
     print(f"\nStats for {selected_name}:")
     for key, value in zip(headers, player_row):
         print(f"{key}: {value}")
-            
+
     # Offer options to edit or remove
     while True:
         print("\nOptions:")
@@ -188,24 +204,43 @@ def display_player_stats(selected_name=None):
 
         if choice == "1":
             # Prompt for updated values
-            position_input = input(f"Enter new position (current: {player_row[1]}):\n ").strip()
+            position_input = input(
+                f"Enter new position (current: {player_row[1]}):\n "
+            ).strip()
             position = position_input if position_input else player_row[1]
 
-            goals_input = input(f"Enter new goals scored (current: {player_row[2]}):\n ").strip()
+            goals_input = input(
+                f"Enter new goals scored (current: {player_row[2]}):\n "
+            ).strip()
             goals = int(goals_input) if goals_input else int(player_row[2])
 
-            matches_input = input(f"Enter new matches played (current: {player_row[3]}):\n ").strip()
-            matches = int(matches_input) if matches_input else int(player_row[3])
+            matches_input = input(
+                f"Enter new matches played (current: {player_row[3]}):\n "
+            ).strip()
+            matches = int(matches_input) if matches_input else \
+                int(player_row[3])
 
-            minutes_input = input(f"Enter new minutes played (current: {player_row[4]}):\n ").strip()
-            minutes = int(minutes_input) if minutes_input else int(player_row[4])
+            minutes_input = input(
+                f"Enter new minutes played (current: {player_row[4]}):\n "
+            ).strip()
+            minutes = int(minutes_input) if minutes_input else \
+                int(player_row[4])
 
             minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
 
             # Update the row in the sheet
             stats.update(
-                range_name=f'A{row_index}:F{row_index}', 
-                values=[[selected_name, position, goals, matches, minutes, minutes_per_goal]],
+                range_name=f'A{row_index}:F{row_index}',
+                values=[
+                    [
+                        selected_name,
+                        position,
+                        goals,
+                        matches,
+                        minutes,
+                        minutes_per_goal
+                    ]
+                ],
             )
             print(f"\nStats for {selected_name} have been updated!")
             return add_data_to_sheet()
@@ -220,8 +255,11 @@ def display_player_stats(selected_name=None):
             return add_data_to_sheet()
 
         else:
-            print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
-    
+            print(
+                f"Invalid selection: '{selected_name}' "
+                "is not in the player list. Please try again."
+            )
+
 
 def get_player_names_from_sheet():
     """
@@ -252,7 +290,9 @@ def display_player_stats_for_name(name):
 
     if name in player_names:
         # Find and display the stats of the selected player
-        player_row = player_data[[p.lower() for p in player_names].index(name.lower())]
+        player_row = player_data[
+            [p.lower() for p in player_names].index(name.lower())
+        ]
         player_stats = dict(zip(headers, player_row))
         print(f"\nStats for {name}:")
         for key, value in player_stats.items():
