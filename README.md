@@ -169,6 +169,8 @@ Incorrect error message when an option has been selected outside the available o
 
 ![Bug](images/bug.png)
 
+This has since been fixed.
+
 ## Credits
 
 Code Institute: Provided educational materials and support to guide the development of this project.
