@@ -131,10 +131,6 @@ The portal has been well tested and the results can be viewed [here - TESTING](h
 The next update of the app will include the option to choose whether it is their first visit (which will show the instructions) or whether they have used the service before.
 Additional stats to be added such as assists, shots on target etc.
 
-## Validation
-
-PEP8 - Python style checker - https://pep8ci.herokuapp.com/ All code validated and where lines were showing as too long they were adjusted.
-
 ## deployment
 
 ### Heroku
@@ -161,7 +157,27 @@ Wait for the app to build. Once ready you will see the “App was successfully d
 5. You will be asked if you want to clone the repository - say yes.
 6. GitHub desktop will suggest what to do next - select Open code using Visual Studio Code.
 
-The deployed project live link is [HERE]
+### Local Development
+
+#### How to Fork
+
+To fork the repository:
+
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, [goal-scorer-stats](https://github.com/IeuanPriede/goal-scorer-stats)
+3. Click the Fork button in the top right corner.
+
+#### How to Clone
+
+To clone the repository:
+
+1. Log in (or sign up) to GitHub.
+2. Go to the repository for this project, [goal-scorer-stats](https://github.com/IeuanPriede/goal-scorer-stats)
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
+
+The deployed project live link is [HERE](https://goal-scorer-stats-d418002caeb6.herokuapp.com/)
 
 ## Bugs
 

@@ -35,4 +35,8 @@ The following tests were carried out to ensure the portal is working correctly
 
 I used ficticious players to add to the Google Sheets file to ensure it was connected and working properly.
 
+## Validation
+
+PEP8 - Python style checker - https://pep8ci.herokuapp.com/ All code validated and where lines were showing as too long they were adjusted.
+
 ### [BACK TO README](https://github.com/IeuanPriede/goal-scorer-stats/blob/main/README.md)
