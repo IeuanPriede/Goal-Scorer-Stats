@@ -124,7 +124,7 @@ Google Sheets
 
 ## Testing
 
-The portal has been well tested and the results can be viewed [here - TESTING](TESTING.md)
+The portal has been well tested and the results can be viewed [here - TESTING](https://github.com/IeuanPriede/goal-scorer-stats/blob/main/TESTING.md)
 
 ## Future Updates
 
@@ -139,6 +139,20 @@ PEP8 - Python style checker - https://pep8ci.herokuapp.com/ All code validated a
 
 ### Heroku
 
+The Application has been deployed from GitHub to Heroku by following the steps:
+
+Create or log in to your account at heroku.com
+Create a new app, add a unique app name ( for example goal-scorer-stats) and then choose your region
+Click on create app
+Go to "Settings"
+Under Config Vars add the private API key information using key 'CRED' and into the value area copy the API key information added to the .json file. Also add a key 'PORT' and value '8000'.
+Add required buildpacks (further dependencies). For this project, set it up so Python will be on top and Node.js on bottom
+Go to "Deploy" and select "GitHub" in "Deployment method"
+To connect Heroku app to your Github repository code enter your repository name, click 'Search' and then 'Connect' when it shows below.
+Choose the branch you want to build your app from
+If preferred, click on "Enable Automatic Deploys", which keeps the app up to date with your GitHub repository
+Wait for the app to build. Once ready you will see the “App was successfully deployed” message and a 'View' button to take you to your deployed link.
+
 ### Branching the GitHub Repository using GitHub Desktop and Visual Studio Code
 1. Go to the GitHub repository.
 2. Click on the branch button in the left hand side under the repository name.
@@ -151,6 +165,20 @@ The deployed project live link is [HERE]
 
 ## Bugs
 
+Incorrect error message when an option has been selected outside the available options.
+
+![Bug](images/bug.png)
+
 ## Credits
 
+Code Institute: Provided educational materials and support to guide the development of this project.
+
+Stack Overflow: For troubleshooting and debugging various issues during development.
+
+PEP 8 – Style Guide for Python Code: Referenced for adhering to Python coding standards.
+
 ## Acknowledgements 
+
+My mentor Jubril Akolade for suggesting additional features to improve the program.
+
+A big thank you to the open-source community for the libraries and resources used in this project.
