@@ -18,6 +18,7 @@ SHEET = GSPREAD_CLIENT.open('Goal-Scorer-Stats')
 # Access the "stats" worksheet
 stats = SHEET.worksheet('stats')
 
+
 # Function to input data
 def add_data_to_sheet():
     # Get player names from the sheet
@@ -26,13 +27,15 @@ def add_data_to_sheet():
     # Promt the user to enter data with validation
     name = get_valid_name(player_names)
 
-    # If the name is selected from the list(i,e., user pressed Enter and selected a player)
+    # If the name is selected from the list
+    # (i,e., user pressed Enter and selected a player)
     if name in player_names:
         # Skip the inputs for position, goals, matches, and minutes
         print(f"\nShowing stats for player '{name}'.")
         display_player_stats(selected_name=name)
     else:
-        # Ask for position, goals, matches, and minutes only if new player is added
+        # Ask for position, goals, matches,
+        # and minutes only if new player is added
         position = get_valid_position()
         goals = get_valid_integer("Enter the number of goals scored:\n ")
         matches = get_valid_integer("Enter the number of matches played:\n ")
@@ -41,42 +44,63 @@ def add_data_to_sheet():
         # Calculate minutes per goal
         minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
 
-        # Appends the data to the sheet as a new row
-        stats.append_row([name, position, goals, matches, minutes, minutes_per_goal])
+        # Appends the data to the sheet as
+        # a new row
+        stats.append_row(
+            [name, position, goals, matches, minutes, minutes_per_goal]
+            )
 
-        print(f"\nPlayer '{name}' that plays as '{position}' with {goals} goals in {matches} matches and {minutes} minutes" f"(Minutes per Goal: {minutes_per_goal}) has been added to the stats sheet!")
+        print(
+            f"\nPlayer '{name}' that plays as '{position}' with {goals} goals "
+            f"in {matches} matches and {minutes} minutes "
+            f"(Minutes per Goal: {minutes_per_goal}) "
+            f"has been added to the stats sheet!"
+        )
+
 
 def calculate_minutes_per_goal(minutes, goals):
     """
     Calculate minutes per goal.
     If the player scored 0 goals, return 'N/A' to aviod division by zero.
-    """ 
-    return math.ceil(minutes / goals) if goals > 0 else "N/A"  
+    """
+    return math.ceil(minutes / goals) if goals > 0 else "N/A"
+
 
 def get_valid_name(player_names):
     """
-    Prompt user to enter a valid name, or press Enter to see the list of players.
+    Prompt user to enter a valid name,
+    or press Enter to see the list of players.
     """
     while True:
-        name = get_input_with_exit("Enter player's name, or press Enter to see the list of players (You can exit the program at anytime by typing 'exit'.):\n ").strip()
-        if name =="":
+        name = get_input_with_exit(
+            "Enter player's name, or press Enter to see the list of players "
+            "(You can exit the program at anytime by typing 'exit'.):\n "
+        ).strip()
+        if name == "":
             # Show the list of players if no name is entered
             print("\nPlayer List:")
             for player in player_names:
                 print(player)
-            
-            # Proceed directly to allow the user to select a player from the list
+
+            # Proceed directly to allow the user to select
+            # a player from the list
             while True:
-                selected_name = get_input_with_exit("\nEnter a player's name to view their stats:\n ").strip()
+                selected_name = get_input_with_exit(
+                    "\nEnter a player's name to view their stats:\n "
+                ).strip()
                 if selected_name.lower() in [p.lower() for p in player_names]:
                     # Return the exact matching name from list
-                    return next(p for p in player_names if p.lower() == selected_name.lower())
+                    return next(
+                        p for p in player_names
+                        if p.lower() == selected_name.lower()
+                    )
                 else:
                     print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
         elif name:    
             return name # Valid name entered
         else:
             print("Invalid data: Please input a valid name.")
+
 
 def get_valid_position():
     """
@@ -88,6 +112,7 @@ def get_valid_position():
         if position in allowed_positions:
             return position
         print(f"Invalid data: Position must be one of {allowed_positions}.")
+
 
 def get_valid_integer(prompt):
     """
@@ -102,6 +127,7 @@ def get_valid_integer(prompt):
             print("Invalid data: Please enter a non-negative integer.")
         except ValueError:
             print("Invalid data: Please enter a valid integer.")
+
 
 def display_player_stats(selected_name=None):
     """
@@ -196,6 +222,7 @@ def display_player_stats(selected_name=None):
         else:
             print(f"Invalid selection: '{selected_name}' is not in the player list. Please try again.")
     
+
 def get_player_names_from_sheet():
     """
     Retrieve the list of player names from the spreadsheet.
@@ -207,6 +234,7 @@ def get_player_names_from_sheet():
     player_names = [row[0] for row in player_data]
 
     return player_names
+
 
 def display_player_stats_for_name(name):
     """
@@ -232,6 +260,7 @@ def display_player_stats_for_name(name):
     else:
         print(f"Player '{name}' not found in the stats sheet.")
 
+
 def get_input_with_exit(prompt):
     """
     Prompt the user for input, and exit the program if 'exit is entered.
@@ -241,6 +270,7 @@ def get_input_with_exit(prompt):
         print("\nExiting the program. Goodbye!")
         sys.exit()
     return user_input
+
 
 # Call the functions to add a player and view stats
 add_data_to_sheet()
