@@ -34,9 +34,9 @@ def add_data_to_sheet():
     else:
         # Ask for position, goals, matches, and minutes only if new player is added
         position = get_valid_position()
-        goals = get_valid_integer("Enter the number of goals scored: ")
-        matches = get_valid_integer("Enter the number of matches played: ")
-        minutes = get_valid_integer("Enter the amount of minutes played: ")
+        goals = get_valid_integer("Enter the number of goals scored:\n ")
+        matches = get_valid_integer("Enter the number of matches played:\n ")
+        minutes = get_valid_integer("Enter the amount of minutes played:\n ")
 
         # Calculate minutes per goal
         minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
@@ -58,7 +58,7 @@ def get_valid_name(player_names):
     Prompt user to enter a valid name, or press Enter to see the list of players.
     """
     while True:
-        name = get_input_with_exit("Enter player's name (or press Enter to see the list of players): ").strip()
+        name = get_input_with_exit("Enter player's name, or press Enter to see the list of players (You can exit the program at anytime by typing 'exit'.):\n ").strip()
         if name =="":
             # Show the list of players if no name is entered
             print("\nPlayer List:")
@@ -67,7 +67,7 @@ def get_valid_name(player_names):
             
             # Proceed directly to allow the user to select a player from the list
             while True:
-                selected_name = get_input_with_exit("\nEnter a player's name to view their stats: ").strip()
+                selected_name = get_input_with_exit("\nEnter a player's name to view their stats:\n ").strip()
                 if selected_name.lower() in [p.lower() for p in player_names]:
                     # Return the exact matching name from list
                     return next(p for p in player_names if p.lower() == selected_name.lower())
@@ -84,7 +84,7 @@ def get_valid_position():
     """
     allowed_positions = ["Attacker", "Midfielder", "Defender", "Goalkeeper"]
     while True:
-        position = get_input_with_exit("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper)").strip().capitalize()
+        position = get_input_with_exit("Enter player's position (Attacker/Midfielder/Defender/Goalkeeper):\n ").strip().capitalize()
         if position in allowed_positions:
             return position
         print(f"Invalid data: Position must be one of {allowed_positions}.")
@@ -131,13 +131,13 @@ def display_player_stats(selected_name=None):
 
         # Prompt user to select a player's name
         while True:
-            selected_name = get_input_with_exit("\nEnter a player's name to view their stats, type 'back' to go back, or type 'exit' to exit the program: ").strip()
+            selected_name = get_input_with_exit("\nEnter a player's name to view their stats, type 'back' to go back, or type 'exit' to exit the program:\n ").strip()
             if selected_name.lower() == "back":
                 return add_data_to_sheet()
 
             if selected_name.lower() in [p.lower() for p in player_names]:
                 # Get the exact name
-                selected_name = next(p for p in player_names if p.lower() == selected.name.lower())
+                selected_name = next(p for p in player_names if p.lower() == selected_name.lower())
                 break
             else:
                 print(f"Invalid selection: '{selected_name}' is not on the player list. Please try again")
@@ -158,20 +158,20 @@ def display_player_stats(selected_name=None):
         print("2. Remove player")
         print("3. Go back")
 
-        choice = get_input_with_exit("\nEnter your choice: ").strip()
+        choice = get_input_with_exit("\nEnter your choice:\n ").strip()
 
         if choice == "1":
             # Prompt for updated values
-            position_input = input(f"Enter new position (current: {player_row[1]}): ").strip()
+            position_input = input(f"Enter new position (current: {player_row[1]}):\n ").strip()
             position = position_input if position_input else player_row[1]
 
-            goals_input = input(f"Enter new goals scored (current: {player_row[2]}): ").strip()
+            goals_input = input(f"Enter new goals scored (current: {player_row[2]}):\n ").strip()
             goals = int(goals_input) if goals_input else int(player_row[2])
 
-            matches_input = input(f"Enter new matches played (current: {player_row[3]}): ").strip()
+            matches_input = input(f"Enter new matches played (current: {player_row[3]}):\n ").strip()
             matches = int(matches_input) if matches_input else int(player_row[3])
 
-            minutes_input = input(f"Enter new minutes played (current: {player_row[4]}): ").strip()
+            minutes_input = input(f"Enter new minutes played (current: {player_row[4]}):\n ").strip()
             minutes = int(minutes_input) if minutes_input else int(player_row[4])
 
             minutes_per_goal = calculate_minutes_per_goal(minutes, goals)
